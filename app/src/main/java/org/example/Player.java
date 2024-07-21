@@ -1,51 +1,47 @@
+package org.example;
+
 import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
-// モンスタークラスの定義（仮のものとして例を示します）
-class Monster {
-    private String name;
-
-    public Monster(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String toString() {
-        return name;
-    }
-}
-
-// プレイヤークラスの定義
 public class Player {
-    private String name;
-    private List<Monster> monsterDeck;
+    String name;
+    ArrayList<Monster> monsterDeck;
 
-    public Player(String name, List<Monster> monsterDeck) {
+    public Player(String name) {
         this.name = name;
-        this.monsterDeck = monsterDeck;
+        this.monsterDeck = new ArrayList<>();
+        initializeDeck();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public List<Monster> getMonsterDeck() {
-        return monsterDeck;
+    private void initializeDeck() {
+        for (int i = 0; i < 8; i++) {
+            this.monsterDeck.add(new Monster());
+        }
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(name).append("'s Deck: ");
-        for (Monster monster : monsterDeck) {
-            sb.append(monster.toString()).append(" ");
+        sb.append("Player: ").append(this.name).append("\nDeck:\n");
+        for (Monster monster : this.monsterDeck) {
+            sb.append(monster).append("\n");
         }
-        return sb.toString().trim();
+        return sb.toString();
+    }
+
+    public void addMonster(Monster monster) {
+        if (this.monsterDeck.size() < 8) {
+            this.monsterDeck.add(monster);
+        }
+    }
+
+    public ArrayList<Monster> getMonsterDeck() {
+        return this.monsterDeck;
+    }
+
+    public static void main(String[] args) {
+        Player player = new Player("TestPlayer");
+        System.out.println(player);
     }
 }
-
 
